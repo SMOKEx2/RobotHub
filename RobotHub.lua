@@ -9618,50 +9618,6 @@ PvP_Tab:Button("Set Position Spawn",function()
 	Com()
 end)
 
-PvP_Tab:Toggle("ESP Player",false,function(Value)
-    PlayerESP = Value
-	while PlayerESP do wait()
-		UpdatePlayer()
-	end
-end)
-
-function UpdatePlayer()
-	for i,v in pairs(game:GetService("Players"):GetChildren()) do
-		pcall(function()
-			if v.Character then
-				if PlayerESP then
-					if v.Character.Head and not v.Character.Head:FindFirstChild("PlayerESP"..Number) then
-						local Bb = Instance.new("BillboardGui", v.Character.Head)
-						Bb.Name = "PlayerESP"..Number
-						Bb.ExtentsOffset = Vector3.new(0, 1, 0)
-						Bb.Size = UDim2.new(1, 200, 1, 30)
-						Bb.Adornee = v.Character.Head
-						Bb.AlwaysOnTop = true
-						local Textlb = Instance.new("TextLabel", Bb)
-						Textlb.Font = "GothamBold"
-						Textlb.FontSize = "Size14"
-						Textlb.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-						Textlb.Size = UDim2.new(1,0,1,0)
-						Textlb.BackgroundTransparency = 1
-						Textlb.TextStrokeTransparency = 0.5
-						if v.Team == game:GetService("Players").LocalPlayer.Team then
-							Textlb.TextColor3 = Color3.new(0, 255, 0)
-						else
-							Textlb.TextColor3 = Color3.new(0, 0, 204)
-						end
-					else
-						v.Character.Head["PlayerESP"..Number].TextLabel.Text = v.Name.."\n"..math.round((v.Character.Head.Position - game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/3).." m."
-					end
-				else
-					if v.Character.Head:FindFirstChild("PlayerESP"..Number) then
-						v.Character.Head:FindFirstChild("PlayerESP"..Number):Destroy()
-					end
-				end
-			end
-		end)
-	end
-end
-
 PvP_Tab:Label("No Cooldown & Infinity")
 PvP_Tab:Toggle("Soru No Cooldown","9606294253",_G.Setting_table.Sorunocool,function(vu)
 	Sorunocool = vu
